@@ -1,0 +1,11 @@
+D:\Visual studio projects\SmileBotCore\SmileBotCore\bin\Debug\netcoreapp2.0\SmileBotCore.deps.json
+D:\Visual studio projects\SmileBotCore\SmileBotCore\bin\Debug\netcoreapp2.0\SmileBotCore.runtimeconfig.json
+D:\Visual studio projects\SmileBotCore\SmileBotCore\bin\Debug\netcoreapp2.0\SmileBotCore.runtimeconfig.dev.json
+D:\Visual studio projects\SmileBotCore\SmileBotCore\bin\Debug\netcoreapp2.0\SmileBotCore.dll
+D:\Visual studio projects\SmileBotCore\SmileBotCore\bin\Debug\netcoreapp2.0\SmileBotCore.pdb
+D:\Visual studio projects\SmileBotCore\SmileBotCore\obj\Debug\netcoreapp2.0\SmileBotCore.csprojResolveAssemblyReference.cache
+D:\Visual studio projects\SmileBotCore\SmileBotCore\obj\Debug\netcoreapp2.0\SmileBotCore.csproj.CoreCompileInputs.cache
+D:\Visual studio projects\SmileBotCore\SmileBotCore\obj\Debug\netcoreapp2.0\SmileBotCore.AssemblyInfoInputs.cache
+D:\Visual studio projects\SmileBotCore\SmileBotCore\obj\Debug\netcoreapp2.0\SmileBotCore.AssemblyInfo.cs
+D:\Visual studio projects\SmileBotCore\SmileBotCore\obj\Debug\netcoreapp2.0\SmileBotCore.dll
+D:\Visual studio projects\SmileBotCore\SmileBotCore\obj\Debug\netcoreapp2.0\SmileBotCore.pdb
