@@ -1,2 +1,1 @@
-# A-new-bot
-18:40
+http://goo.gl/EkUUb7
