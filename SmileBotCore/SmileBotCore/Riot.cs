@@ -23,7 +23,7 @@ namespace SmileBotCore
         public string mac3id;
         public string mac4id;
         public string mac5id;
-        public string apikey = ":)";
+        public string apikey = "RGAPI-317fa228-333b-41cc-ba47-b73372d71f93";
         public string macoyunmodu;
         public string macsure;
         public string macsonuc;

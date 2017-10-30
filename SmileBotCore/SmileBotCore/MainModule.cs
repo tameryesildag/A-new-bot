@@ -46,17 +46,15 @@ namespace SmileBotCore
         SmileBotCore.Program pr = new SmileBotCore.Program();
         SmileBotCore.Riot riot = new SmileBotCore.Riot();
         Ping p;
-        static denemeservice ds = new denemeservice();
         [Command("Ping")]
         public async Task Ping()
         {
-            await Turkcemi(Context);
             p = new Ping();
             await Context.Channel.SendMessageAsync("**" + p.Send("www.discordapp.com").RoundtripTime.ToString() + "ms" + "**");
-
         }
         [Command("emoji")]
         [Alias("emote")]
+        [Summary("!Emote <text>")]
         public async Task service([Remainder] string metin)
         {
             makeitfancy mif = new makeitfancy();
@@ -85,6 +83,7 @@ namespace SmileBotCore
         }
         [Command("texttobinary")]
         [Alias("binary","ttb")]
+        [Summary("!Texttobinary <text>")]
         public async Task texttobinary([Remainder] string text)
         {
             string output = "";
@@ -93,10 +92,10 @@ namespace SmileBotCore
                 output += (Convert.ToString(c, 2).PadLeft(8, '0'));
             }
             await Context.Channel.SendMessageAsync("**" + output + "**");
-
         }
         [Command("binarytotext")]
         [Alias("text","btt")]
+        [Summary("!Binarytotext <binary>")]
         public async Task binarytotext([Remainder] string binary)
         {
             string asilbinary = binary.Replace(" ", string.Empty);
@@ -135,22 +134,23 @@ namespace SmileBotCore
         [Command("Dil")]
         [Alias("Language")]
         [RequireUserPermission(GuildPermission.Administrator)]
+        [Summary("!Language <en / tr>")]
         public async Task Dil(string d)
         {
-            await Turkcemi(Context);
+          //  await Turkcemi(Context);
             if (d == "en" || d == "english" || d == "English" || d == "İngilizce" || d == "ingilizce")
             {
                // var currentuser = Context.Guild.GetCurrentUserAsync();
                 IGuildUser Client = await Context.Guild.GetUserAsync(Context.Client.CurrentUser.Id);
                
-                await Client.ModifyAsync(x => x.Nickname = "EN Smile Bot");
+                await Client.ModifyAsync(x => x.Nickname = "BIPBOPBIP EN");
                 await Context.Channel.SendMessageAsync("Language is set to **English**.");
             }
             if (d == "tr" || d == "Türkçe" || d == "türkçe" || d == "Turkish" || d == "turkish")
             {
                 IGuildUser Client = await Context.Guild.GetUserAsync(Context.Client.CurrentUser.Id);
 
-                await Client.ModifyAsync(x => x.Nickname = "TR Smile Bot");
+                await Client.ModifyAsync(x => x.Nickname = "BIPBOPBIP TR");
                 await Context.Channel.SendMessageAsync("Dil **Türkçeye** ayarlandı.");
             }
             if (d != "tr" & d != "en" & d != "Türkçe" & d != "türkçe" & d != "Turkish" & d != "turkish" & d != "english" & d != "English" & d != "İngilizce" & d != "ingilizce")
@@ -189,7 +189,6 @@ namespace SmileBotCore
                 if (l == 1) await Context.Channel.SendMessageAsync("Bot çevrimdışı.");
                 else await Context.Channel.SendMessageAsync("Bot is offline.");
                 Environment.Exit(0);
-               
             }
             else
             {
@@ -198,6 +197,7 @@ namespace SmileBotCore
         }
         [Command("Hava")]
         [Alias("Havadurumu")]
+        [Summary("!Hava <şehir>")]
         public async Task Hava(string şehir)
         {
             await Turkcemi(Context);
@@ -228,9 +228,10 @@ namespace SmileBotCore
         }
         [Command("mcskin")]
         [Alias("skin","minecraftskin")]
+        [Summary("!Mcskin <username>")]
         public async Task mcskin(string isim)
         {
-                string localFilename = @"D:\Visual studio projects\SmileBot\Kodumunbot\bin\Debug\skin.jpg";
+                string localFilename = "skin.jpg";
                 using (WebClient client = new WebClient())
                 {
                     client.DownloadFile("https://minecraftskinstealer.com/skin.php?u=" + isim + "&s=700", localFilename);
@@ -239,7 +240,8 @@ namespace SmileBotCore
                 await Task.Delay(3000);
         }
         [Command("Özürlü")]
-        [Alias("Disabled")]
+        [Alias("sarcastic")]
+        [Summary("!Sarcastic <text>")]
         public async Task Özürlü([Remainder] string metin)
         {
             await Turkcemi(Context);
@@ -247,10 +249,6 @@ namespace SmileBotCore
             char[] charlar;
             charlar = metin.ToCharArray();
             char[] charlar2 = new char[charlar.Length];
-            foreach (char c in charlar)
-            {
-               // Console.WriteLine(c);
-            }
             for (int i = 0; i < charlar.Length; i++)
             {
                 if (sıra == 0)
@@ -289,6 +287,7 @@ namespace SmileBotCore
         }
         [Command("Anket")]
         [Alias("Oylama", "Poll")]
+        [Summary("!Poll <question>")]
         public async Task Anket([Remainder] string soru = "")
         {
             Console.WriteLine("Anket komutu tetiklendi. (" + Context.Guild.Name + ")");
@@ -299,6 +298,7 @@ namespace SmileBotCore
         }
         [Command("Secenekler")]
         [Alias("Options", "Choices", "Seçenekler")]
+        [Summary("!Options <option> <option> {option} {option} {option}")]
         public async Task secenek(string secenek1 = "", string secenek2 = "", string secenek3 = "", string secenek4 = "", string secenek5 = "")
         {
             await Turkcemi(Context);
@@ -426,6 +426,7 @@ namespace SmileBotCore
         }
         [Command("say")]
         [Alias("gerisay", "geriyesay", "count", "countback", "countdown")]
+        [Summary("!Count <time> {s / m}")]
         public async Task Gerisay(int zaman, string birim = "sn")
         {
             await Turkcemi(Context);
@@ -435,33 +436,20 @@ namespace SmileBotCore
                 if (l == 1) await Context.Channel.SendMessageAsync("Geri sayım başladı. Biteceği zaman: **" + DateTime.Now.AddSeconds(üstlimitsaniye).ToString() + "**");
                 else await Context.Channel.SendMessageAsync("Countdown has started. Countdown will finish at **" + DateTime.Now.AddSeconds(üstlimitsaniye).ToString() + "**");
             }
-            /*  if (birim == "dakika")
-              {
-                  üstlimitsaniye = zaman * 60;
-                  if (l == 1) await Context.Channel.SendMessageAsync("Geri sayım başladı. Biteceği zaman: **" + DateTime.Now.AddSeconds(üstlimitsaniye).ToString() + "**");
-                  else await Context.Channel.SendMessageAsync("Countdown has started. Countdown will finish at **" + DateTime.Now.AddSeconds(üstlimitsaniye).ToString() + "**");
-              } */
             if (birim == "sn" || birim == "saniye" || birim == "s" || birim == "second")
             {
                 üstlimitsaniye = zaman;
                 if (l == 1) await Context.Channel.SendMessageAsync("Geri sayım başladı. Biteceği zaman: **" + DateTime.Now.AddSeconds(üstlimitsaniye).ToString() + "**");
                 else await Context.Channel.SendMessageAsync("Countdown has started. Countdown will finish at **" + DateTime.Now.AddSeconds(üstlimitsaniye).ToString() + "**");
             }
-            /* if (birim == "saniye")
-             {
-                 üstlimitsaniye = zaman;
-                 if (l == 1) await Context.Channel.SendMessageAsync("Geri sayım başladı. Biteceği zaman: **" + DateTime.Now.AddSeconds(üstlimitsaniye).ToString() + "**");
-                 else await Context.Channel.SendMessageAsync("Countdown has started. Countdown will finish at **" + DateTime.Now.AddSeconds(üstlimitsaniye).ToString() + "**");
-             } */
             ch = Context.Channel;
-
             Timer t = new Timer(1000);
             t.Elapsed += async (sender, e) => await timerislem();
             t.Start();
         }
-
         [Command("Rastgele")]
         [Alias("Rasgele", "Random")]
+        [Summary("!Random <lower limit> <upper limit>")]
         public async Task Rastgele(int altlimit, int üstlimit)
         {
             await Turkcemi(Context);
@@ -469,9 +457,7 @@ namespace SmileBotCore
             Random rastgele = new Random();
             sonuc = rastgele.Next(altlimit, üstlimit);
             await Context.Channel.SendMessageAsync("**" + sonuc.ToString() + "**");
-            
         }
-
         [Command("apikey")]
         [Alias("api", "key")]
         public async Task apikey(string key)
@@ -507,7 +493,8 @@ namespace SmileBotCore
             var stream = client.CreatePCMStream(AudioApplication.Music);
         }
         [Command("isim")]
-        [Alias("ad", "name")]
+        [Alias("ad", "name","nickname")]
+        [Summary("!Name <user> <new name>")]
         public async Task isim(IUser kullanici, [Remainder] string isim)
         {
             await Turkcemi(Context);
@@ -536,15 +523,14 @@ namespace SmileBotCore
         }
         [Command("Asal")]
         [Alias("prime", "primenumber", "isprime", "isprimenumber")]
+        [Summary("!Prime <number>")]
         public async Task Asal(int num1)
         {
             await Turkcemi(Context);
             if (num1 == 0 || num1 == 1)
             {
-                //  Console.WriteLine(num1 + " is not prime number");
                 if (l == 1) await Context.Channel.SendMessageAsync("**" + num1.ToString() + "**" + " Bir asal sayı değil.");
                 else await Context.Channel.SendMessageAsync("**" + num1.ToString() + "**" + " is not a prime number.");
-
             }
             else
             {
@@ -563,7 +549,8 @@ namespace SmileBotCore
             }
         }
         [Command("Hesapla")]
-        [Alias("İşlem", "Hesap", "calculate")]
+        [Alias("İşlem", "Hesap", "calculate","compute")]
+        [Summary("!calculate <number> <operation> <number>")]
         public async Task Hesapla(double sayi1 = 0, string isaret = "", double sayi2 = 0)
         {
             await Turkcemi(Context);
@@ -577,7 +564,6 @@ namespace SmileBotCore
                 double sonuc;
                 sonuc = sayi1 + sayi2;
                 await Context.Channel.SendMessageAsync(Context.User.Mention + " " + sonuc.ToString());
-
             }
             if (isaret == "-")
             {
@@ -615,9 +601,10 @@ namespace SmileBotCore
                 }
                 await Context.Channel.SendMessageAsync(Context.User.Mention + " " + sonuc.ToString());
             }
-            await Task.Delay(2000);
+           
         }
         [Command("Embed")]
+        [Summary("!Embed <title> <description>")]
         public async Task Embed(string başlık, [Remainder] string açıklama)
         {
             await Turkcemi(Context);
@@ -627,6 +614,7 @@ namespace SmileBotCore
         }
         [Command("Sağırlaştır")]
         [Alias("Sağır","deaf","deafen","Sagir","Sagirlastir")]
+        [Summary("!Deaf <user>")]
         public async Task Sağırlaştır(IUser kullanici)
         {
             await Turkcemi(Context);
@@ -650,10 +638,10 @@ namespace SmileBotCore
                 if (l == 1) await Context.Channel.SendMessageAsync(Context.User.Mention + " Bir kullanıcıyı sağırlaştırmak için sunucuda kanalları yönetme yetkisine sahip olmalısınız");
                 else await Context.Channel.SendMessageAsync(Context.User.Mention + " You need to have 'Manage Channels' permission in server to deafen a user.");
             }
-
         }
         [Command("Sustur")]
         [Alias("Mute")]
+        [Summary("!Mute <user>")]
         public async Task Sustur(IUser kullanici)
         {
             await Turkcemi(Context);
@@ -680,6 +668,7 @@ namespace SmileBotCore
         }
         [Command("Taşı")]
         [Alias("Tasi","Move")]
+        [Summary("!Move <user>")]
         public async Task taşı(IUser kullanici,IChannel kanal)
         {
             await Turkcemi(Context);
@@ -693,16 +682,14 @@ namespace SmileBotCore
                 else await Context.Channel.SendMessageAsync(Context.User.Mention + " You need to have 'Manage Channels' permission in server to move a user to a different voice channel.");
             }
         }
-        
-
         [Command("Yardım")]
         [Alias("Komutlar","Help","Yardim")]
         public async Task Yardim()
         {
            await Turkcemi(Context);
             string description = "\n!yardım\n!sil <mesaj sayısı> {kullanici}\n!dil <Türkçe / İngilizce>\n!sihirdar <sihirdar ismi>\n!taşı <kullanıcı> <hedef kanal>\n!sustur <kullanıcı>\n!sağırlaştır <kullanıcı>\n!embed <başlık> <açıklama>\n!hesapla <sayı> <işlem> <sayı>\n!saat" +
-                "\n!oyun <isim>\n!isim <kullanıcı> <yeni isim>\n!davet\n!̶a̶p̶i̶k̶e̶y̶ ̶<̶R̶i̶o̶t̶ ̶a̶p̶i̶ ̶a̶n̶a̶h̶t̶a̶r̶ı̶>̶\n!rastgele <alt limit> <üst limit>\n!ping\n!asal <sayı>\n!say <süre> {Sn / Dk}\n!anket <soru>\n!secenekler <secenek> <secenek> ..\n!anketbitir"
-                + "\n!hava <şehir>\n!havaradar\n!özürlü <başlık>\n!binary <yazı>\n!text <binary>\n!mcskin <username>\n!emoji <metin>\n!topla";
+                "\n!oyun <isim>\n!isim <kullanıcı> <yeni isim>\n!davet\n!̶a̶p̶i̶k̶e̶y̶ ̶<̶R̶i̶o̶t̶ ̶a̶p̶i̶ ̶a̶n̶a̶h̶t̶a̶r̶ı̶>̶\n!rastgele <alt limit> <üst limit>\n!ping\n!asal <sayı>\n!say <süre> {Sn / Dk}\n!anket <soru>\n!secenekler <secenek> <secenek> {secenek} {secenek} {secenek}\n!anketbitir"
+                + "\n!hava <şehir>\n!havaradar\n!özürlü <başlık>\n!binary <yazı>\n!text <binary>\n!mcskin <username>\n!emoji <metin>\n!topla\n!typing-game";
             description += "\n\n Bot davet linki: http://goo.gl/EkUUb7";
 
             string description2 = "Kullanılabilir komutlar: \nSüslü parantez içerisinde olan parametreler isteğe bağlıdır.\n**";
@@ -710,19 +697,20 @@ namespace SmileBotCore
             if (l == 0)
             {
                 description = "\n!help\n!delete <number of messages> {user}\n!language <English / Turkish>\n!summoner <summoner name>\n!move <user> <target channel>\n!mute <user>\n!deaf <user>\n!embed <title> <description>\n!calculate <number> <operation> <number>\n!time" +
-                "\n!game <game name>\n!name <user> <new name>\n!invite\n!random <lower limit> <upper limit>\n!ping\n!isprime <number>\n!count <time> {s / m}\n!poll <question>\n!options <option> <option> ..\n!finishpoll"
-                + "\n!weather <city>\n!binary <text>\n!text <binary>\n!mcskin <username>\n!emoji <text>\n!collect";
+                "\n!game <game name>\n!name <user> <new name>\n!invite\n!random <lower limit> <upper limit>\n!ping\n!isprime <number>\n!count <time> {s / m}\n!poll <question>\n!options <option> <option> {option} {option} {option}\n!finishpoll\n!typing-game"
+                + "\n!weather <city>\n!sarcastic <text>\n!binary <text>\n!text <binary>\n!mcskin <username>\n!emoji <text>\n!collect";
                 description += "\n\n Bot invite link: http://goo.gl/EkUUb7";
                 title = "Click for Github";
                 description2 = "Available commands: \nParameters in fancy brackets are optional.\n**";
             }  
             var eb = new EmbedBuilder() { Title = title, Description = description2 + description + "**", Color = Color.Blue };
             var fb = new EmbedFieldBuilder();
-            eb.WithUrl("https://www.github.com/tmr0222/SmileBot");
+            eb.WithUrl("https://github.com/tameryesildag/A-new-bot");
             await Context.Channel.SendMessageAsync("",false,eb);
         }
         [Command("Sihirdar")]
         [Alias("Summoner")]
+        [Summary("!Summoner <name>")]
         public async Task Sihirdar([Remainder] string isim)
         {
             await Turkcemi(Context);
@@ -839,13 +827,14 @@ namespace SmileBotCore
             }
             catch(Exception e)
             {
-                if (l == 1) await Context.Channel.SendMessageAsync("```İşlemi gerçekleştirirken bir hata meydana geldi.\n" + e.Message + "\nAPI Anahtarını güncelleyin. \ndeveloper.riotgames.com```");
-                else await Context.Channel.SendMessageAsync("```Error: \n" + e.Message + "" + "\nUpdate the API key. \ndeveloper.riotgames.com```");
+                if (l == 1) await Context.Channel.SendMessageAsync("```İşlemi gerçekleştirirken bir hata meydana geldi.\n" + e.Message + "\nHatanın kaynağı büyük ihtimal ile güncellenmemiş API anahtarı. \ndeveloper.riotgames.com```");
+                else await Context.Channel.SendMessageAsync("```Error: \n" + e.Message + "" + "\nProbably it caused by non updated API key. \ndeveloper.riotgames.com```");
             }
         }
 
         [Command("Sil")]
         [Alias("Delete")]
+        [Summary("!Delete <number of messages> {user}!")]
         public async Task Sil(int sayi, IUser kullanici = null)
         {
             await Turkcemi(Context);
@@ -868,7 +857,6 @@ namespace SmileBotCore
                         await Item.DeleteAsync();
                     }
 
-                   await Task.Delay(5000);
                 }
             }
             else
@@ -876,7 +864,6 @@ namespace SmileBotCore
                 if (l == 1) await Context.Channel.SendMessageAsync(Context.User.Username + " Mesaj silebilmeniz için sunucuda mesajları yönetme yetkisine sahip olmanız gerek.");
                 else await Context.Channel.SendMessageAsync(Context.User.Mention + " You need to have 'Manage Messages' permission in server to delete messages.");
             }
- 
         }
         private async Task timerislem()
         {
@@ -908,7 +895,9 @@ namespace SmileBotCore
         }
         private async Task Turkcemi(ICommandContext cx)
         {
+            
             IGuildUser gu = await cx.Guild.GetUserAsync(cx.Client.CurrentUser.Id);
+            Console.WriteLine("Bot ismi kontrol ediliyor. " + gu.Nickname + " / " + cx.Guild.Name);
             if (gu.Nickname.Contains("TR"))
             {
                 l = 1;

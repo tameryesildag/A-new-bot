@@ -8,8 +8,9 @@ namespace SmileBotCore
     {
         public string _makeitfancy(string metin)
         {
+            string newmetin = metin.ToLower();
             string output = "";
-            foreach(char c in metin)
+            foreach(char c in newmetin)
             {
                 if (c == 'a') output += " :regional_indicator_a:"; 
                 if (c == 'b') output += " :regional_indicator_b:";
